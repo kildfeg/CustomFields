@@ -19,10 +19,7 @@ public class LimittedTextField extends JTextField {
 
 	private String previousValue = null;
 	private boolean listenerActive = true;
-	private boolean isvalid = false;
 	JLabel label;
-
-	private boolean notinit = false;
 
 	/**
 	 * 
@@ -51,7 +48,6 @@ public class LimittedTextField extends JTextField {
 				String text = getText();
 				if (text.length() >= min) {
 					previousValue = text;
-					isvalid = true;
 					return;
 				}
 
@@ -75,7 +71,6 @@ public class LimittedTextField extends JTextField {
 				String text = getText();
 				if (text.length() <= max) {
 					previousValue = text;
-					isvalid = true;
 					return;
 				}
 
@@ -104,12 +99,12 @@ public class LimittedTextField extends JTextField {
 		if (!super.isValid()) {
 			return false;
 		}
-		validateBorder();
-		return isvalid;
+
+		return validateBorder();
 
 	}
 
-	private void validateBorder() {
+	private boolean validateBorder() {
 		boolean val = getText().length() >= min && getText().length() <= max;
 
 		if (val) {
@@ -125,5 +120,6 @@ public class LimittedTextField extends JTextField {
 			getParent().add(label);
 			getParent().repaint();
 		}
+		return val;
 	}
 }
