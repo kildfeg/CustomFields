@@ -18,7 +18,6 @@ public class NumberField extends JTextField {
 
 	private String previousValue = null;
 	private boolean listenerActive = true;
-	private boolean isvalid = false;
 	JLabel label;
 
 	/**
@@ -47,17 +46,12 @@ public class NumberField extends JTextField {
 					int val = Integer.parseInt(text);
 					if (val >= min) {
 						previousValue = text;
-						isvalid = true;
-						validateBorder();
 						return;
 					} else {
 						previousValue = text;
-						isvalid = false;
-						validateBorder();
 						return;
 					}
 				} catch (NumberFormatException e) {
-					isvalid = false;
 				}
 
 			}
@@ -73,7 +67,6 @@ public class NumberField extends JTextField {
 					int val = Integer.parseInt(text);
 					if (val <= max) {
 						previousValue = text;
-						isvalid = true;
 						validateBorder();
 						return;
 					}
@@ -107,12 +100,12 @@ public class NumberField extends JTextField {
 		if (!super.isValid()) {
 			return false;
 		}
-		validateBorder();
-		return isvalid;
+
+		return validateBorder();
 
 	}
 
-	private void validateBorder() {
+	private boolean validateBorder() {
 		boolean val = false;
 
 		try {
@@ -135,5 +128,6 @@ public class NumberField extends JTextField {
 			getParent().add(label);
 			getParent().repaint();
 		}
+		return val;
 	}
 }
