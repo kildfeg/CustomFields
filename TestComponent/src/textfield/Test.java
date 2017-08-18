@@ -35,7 +35,7 @@ public class Test extends JPanel {
 		fieldwL = new LimittedTextFieldwL("Test Label", 4, 12);
 		add(fieldwL);
 
-		numberFieldwL = new NumberFieldwL("Deneme Text", 0, 12);
+		numberFieldwL = new NumberFieldwL("Deneme Text", -45, 12);
 		add(numberFieldwL);
 
 		button = new JButton("Doğrula");

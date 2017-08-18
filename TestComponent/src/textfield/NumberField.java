@@ -48,19 +48,6 @@ public class NumberField extends JTextField {
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
-				String text = getText();
-
-				try {
-					int val = Integer.parseInt(text);
-					if (val >= min) {
-						previousValue = text;
-						return;
-					} else {
-						previousValue = text;
-						return;
-					}
-				} catch (NumberFormatException e) {
-				}
 
 			}
 
@@ -71,9 +58,13 @@ public class NumberField extends JTextField {
 				}
 				String text = getText();
 
+				if (text != null && text.length() == 1 && text.equals("-")) {
+					previousValue = text;
+					return;
+				}
 				try {
 					int val = Integer.parseInt(text);
-					if (val <= max) {
+					if (val <= max && val >= min) {
 						previousValue = text;
 						validateBorder();
 						return;
