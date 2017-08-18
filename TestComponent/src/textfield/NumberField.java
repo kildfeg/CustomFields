@@ -26,7 +26,6 @@ public class NumberField extends JTextField {
 	private Popup popup;
 	private PopupFactory popupFactory;
 	private JLabel label;
-	private boolean popupVisible;
 
 	/**
 	 * 
@@ -140,18 +139,16 @@ public class NumberField extends JTextField {
 			setBorder(UIManager.getBorder("TextField.border"));
 		} else {
 			setBorder(new LineBorder(Color.red, 1));
-			// if (popup == null) {
-			popup = popupFactory.getPopup(this, label, p.x + 20, p.y);
-			// }
-
-			if (!popupVisible) {
-				popupVisible = true;
+			if (popup == null) {
+				popup = popupFactory.getPopup(this, label, p.x + 20, p.y);
 				popup.show();
 				ActionListener hider = new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						popup.hide();
-						popupVisible = false;
+						if (popup != null) {
+							popup.hide();
+							popup = null;
+						}
 					}
 				};
 				Timer timer = new Timer(2000, hider);

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -45,10 +46,13 @@ public class Test extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.verify();
-				numberField.verify();
-				fieldwL.verify();
-				numberFieldwL.verify();
+
+				if (textField.verify() && numberField.verify() && fieldwL.verify() && numberFieldwL.verify()) {
+					JOptionPane.showMessageDialog(Test.this, "Tüm Alanlar doğrulandı.");
+				} else {
+					JOptionPane.showMessageDialog(Test.this, "Tüm Alanlar doğrulanaMAdı!!!!!!.");
+				}
+
 			}
 		});
 

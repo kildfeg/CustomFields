@@ -28,7 +28,6 @@ public class LimittedTextField extends JTextField {
 	private Popup popup;
 	private PopupFactory popupFactory;
 	JLabel jLabel;
-	private boolean popupVisible;
 
 	/**
 	 * 
@@ -130,15 +129,16 @@ public class LimittedTextField extends JTextField {
 			setBorder(UIManager.getBorder("TextField.border"));
 		} else {
 			setBorder(new LineBorder(Color.red, 1));
-			popup = popupFactory.getPopup(this, jLabel, p.x + 20, p.y);
-			if (!popupVisible) {
+			if (popup == null) {
+				popup = popupFactory.getPopup(this, jLabel, p.x + 20, p.y);
 				popup.show();
-				popupVisible = true;
 				ActionListener hider = new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						popup.hide();
-						popupVisible = false;
+						if (popup != null) {
+							popup.hide();
+							popup = null;
+						}
 					}
 				};
 				Timer timer = new Timer(2000, hider);
