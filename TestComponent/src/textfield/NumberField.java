@@ -1,11 +1,16 @@
 package textfield;
 
 import java.awt.Color;
-import java.awt.Rectangle;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
@@ -18,7 +23,10 @@ public class NumberField extends JTextField {
 
 	private String previousValue = null;
 	private boolean listenerActive = true;
-	JLabel label;
+	private Popup popup;
+	private PopupFactory popupFactory;
+	private JLabel label;
+	private boolean popupVisible;
 
 	/**
 	 * 
@@ -30,9 +38,10 @@ public class NumberField extends JTextField {
 		this.max = maxValue;
 
 		addListener();
-		label = new JLabel("Deneme");
+
+		popupFactory = PopupFactory.getSharedInstance();
+		label = new JLabel("En az " + min + " en fazla " + max + " olmalıdır.");
 		label.setForeground(new Color(255, 0, 0));
-		label.setText("En az " + min + " en fazla " + max + " olmalıdır.");
 	}
 
 	private void addListener() {
@@ -95,17 +104,12 @@ public class NumberField extends JTextField {
 
 	}
 
-	@Override
-	public boolean isValid() {
-		if (!super.isValid()) {
-			return false;
-		}
-
-		return validateBorder();
-
+	public boolean verify() {
+		validateBorder();
+		return verifyValue();
 	}
 
-	private boolean validateBorder() {
+	private void validateBorder() {
 		boolean val = false;
 
 		try {
@@ -114,20 +118,47 @@ public class NumberField extends JTextField {
 		} catch (NumberFormatException e) {
 			val = false;
 		}
-
 		if (val) {
 			setBorder(UIManager.getBorder("TextField.border"));
 		} else {
 			setBorder(new LineBorder(Color.red, 1));
 		}
 
-		if (label != null) {
-			Rectangle rectangle = getBounds();
-			label.setBounds(rectangle.x, rectangle.y - 20, rectangle.width, 20);
-			label.setVisible(!val);
-			getParent().add(label);
-			getParent().repaint();
+	}
+
+	private boolean verifyValue() {
+		boolean val = false;
+
+		try {
+			val = Integer.parseInt(getText()) >= min && Integer.parseInt(getText()) <= max;
+
+		} catch (NumberFormatException e) {
+			val = false;
 		}
+		Point p = getLocationOnScreen();
+		if (val) {
+			setBorder(UIManager.getBorder("TextField.border"));
+		} else {
+			setBorder(new LineBorder(Color.red, 1));
+			// if (popup == null) {
+			popup = popupFactory.getPopup(this, label, p.x + 20, p.y);
+			// }
+
+			if (!popupVisible) {
+				popupVisible = true;
+				popup.show();
+				ActionListener hider = new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						popup.hide();
+						popupVisible = false;
+					}
+				};
+				Timer timer = new Timer(2000, hider);
+				timer.start();
+			}
+		}
+
 		return val;
 	}
 }

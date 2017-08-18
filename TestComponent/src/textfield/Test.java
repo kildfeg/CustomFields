@@ -1,5 +1,6 @@
 package textfield;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,29 +15,40 @@ public class Test extends JPanel {
 	NumberField numberField;
 	protected JTextArea textArea;
 	JButton button;
+	LimittedTextFieldwL fieldwL;
+
+	NumberFieldwL numberFieldwL;
 
 	public Test() {
-		super(null);
+		super(new GridLayout(5, 1, 5, 5));
 
 		textField = new LimittedTextField(3, 10);
-		textField.setBounds(30, 30, 250, 20);
+		textField.setToolTipText("dfdgsdf");
+		// textField.setBounds(30, 30, 250, 20);
 		add(textField);
 
 		numberField = new NumberField(3, 999);
-		numberField.setBounds(30, 80, 250, 20);
+		// numberField.setBounds(30, 80, 250, 20);
 		add(numberField);
 
+		fieldwL = new LimittedTextFieldwL("Test Label", 4, 12);
+		add(fieldwL);
+
+		numberFieldwL = new NumberFieldwL("Deneme Text", 0, 12);
+		add(numberFieldwL);
+
 		button = new JButton("Doğrula");
-		button.setBounds(30, 110, 250, 50);
+		// button.setBounds(30, 110, 250, 50);
 		add(button);
 
 		button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textField.isValid();
-				numberField.isValid();
-
+				textField.verify();
+				numberField.verify();
+				fieldwL.verify();
+				numberFieldwL.verify();
 			}
 		});
 
