@@ -127,6 +127,10 @@ public class LimittedTextField extends JTextField {
 
 		if (val) {
 			setBorder(UIManager.getBorder("TextField.border"));
+			if (popup != null) {
+				popup.hide();
+				popup = null;
+			}
 		} else {
 			setBorder(new LineBorder(Color.red, 1));
 			if (popup == null) {
@@ -141,7 +145,7 @@ public class LimittedTextField extends JTextField {
 						}
 					}
 				};
-				Timer timer = new Timer(2000, hider);
+				Timer timer = new Timer(20000, hider);
 				timer.start();
 			}
 		}
