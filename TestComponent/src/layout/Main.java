@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import field.DateFieldwL;
 import field.LimittedTextAreawL;
 import field.LimittedTextFieldwL;
 import field.NumberFieldwL;
@@ -39,18 +40,22 @@ public class Main extends JPanel {
 		lta = new LimittedTextAreawL("TextArea : ", 3, 150);
 		add(lta);
 
+		DateFieldwL fieldwL = new DateFieldwL("Date Field : ");
+		add(fieldwL);
+
 		button = new JButton("Doğrula");
 		add(button);
-
 		button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (nfl.verify() && ltf.verify() && ltf2.verify() && ltf3.verify() && lta.verify()) {
+				if (fieldwL.verify() && nfl.verify() && ltf.verify() && ltf2.verify() && ltf3.verify()
+						&& lta.verify()) {
 					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulandı.");
 				} else {
-					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulanaMAdı!!!!!!.");
+					// JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar
+					// doğrulanaMAdı!!!!!!.");
 				}
 
 			}
@@ -68,6 +73,7 @@ public class Main extends JPanel {
 		frame.setSize(400, 400);
 		// Display the window.
 		frame.setVisible(true);
+
 	}
 
 	public static void main(String[] args) {
@@ -78,4 +84,5 @@ public class Main extends JPanel {
 			}
 		});
 	}
+
 }
