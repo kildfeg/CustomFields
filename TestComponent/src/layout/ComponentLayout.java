@@ -7,17 +7,8 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 
 public class ComponentLayout implements LayoutManager {
-	// private int vgap;
-	private int minWidth = 0, minHeight = 0;
-	private int preferredWidth = 0, preferredHeight = 0;
-	private boolean sizeUnknown = true;
 
 	public ComponentLayout() {
-		// this(5);
-	}
-
-	public ComponentLayout(int v) {
-		// vgap = v;
 	}
 
 	/* Required by LayoutManager. */
@@ -79,38 +70,29 @@ public class ComponentLayout implements LayoutManager {
 	}
 
 	/* Required by LayoutManager. */
-	/*
-	 * This is called when the panel is first displayed, and every time its size
-	 * changes. Note: You CAN'T assume preferredLayoutSize or minimumLayoutSize
-	 * will be called -- in the case of applets, at least, they probably won't
-	 * be.
-	 */
 	@Override
 	public void layoutContainer(Container parent) {
 		Insets insets = parent.getInsets();
 		int maxWidth = parent.getWidth() - (insets.left + insets.right);
-		int nComps = parent.getComponentCount();
-		int previousWidth = 0;
 		int x = 0, y = insets.top;
+		int iconSize = 20;
 
-		// Go through the components' sizes, if neither
-		// preferredLayoutSize nor minimumLayoutSize has
-		// been called.
+		Component label = parent.getComponent(0);
+		Component textField = parent.getComponent(1);
+		Component warnIcon = parent.getComponent(2);
 
-		for (int i = 0; i < nComps; i++) {
-			Component c = parent.getComponent(i);
-			if (c.isVisible()) {
-				Dimension d = c.getPreferredSize();
+		maxWidth -= warnIcon.isVisible() ? iconSize : 0;
 
-				// increase x and y, if appropriate
-				if (i == 0) {
-					c.setBounds(x, y, (int) (maxWidth * 0.3), d.height);
-					previousWidth = (int) (maxWidth * 0.3);
-				} else {
-					c.setBounds(x + previousWidth, y, (int) (maxWidth * 0.7), d.height);
-				}
-
-			}
+		if (label.isVisible()) {
+			label.setBounds(x, y, (int) (maxWidth * 0.3), label.getPreferredSize().height);
+			x += (int) (maxWidth * 0.3);
+		}
+		if (textField.isVisible()) {
+			textField.setBounds(x, y, (int) (maxWidth * 0.7), textField.getPreferredSize().height);
+			x += (int) (maxWidth * 0.7);
+		}
+		if (warnIcon.isVisible()) {
+			warnIcon.setBounds(x, y, warnIcon.getPreferredSize().width, warnIcon.getPreferredSize().height);
 		}
 	}
 

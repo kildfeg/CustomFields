@@ -1,16 +1,9 @@
 package textfield;
 
 import java.awt.Color;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
@@ -24,10 +17,7 @@ public class LimittedTextField extends JTextField {
 
 	private String previousValue = null;
 	private boolean listenerActive = true;
-
-	private Popup popup;
-	private PopupFactory popupFactory;
-	JLabel jLabel;
+	private LimittedTextFieldwL parent;
 
 	/**
 	 * 
@@ -40,10 +30,6 @@ public class LimittedTextField extends JTextField {
 
 		addListener();
 
-		popupFactory = PopupFactory.getSharedInstance();
-		jLabel = new JLabel("En az " + min + " en fazla " + max + " karakter içermelidir.");
-		jLabel.setForeground(new Color(255, 0, 0));
-
 	}
 
 	private void addListener() {
@@ -51,25 +37,6 @@ public class LimittedTextField extends JTextField {
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
-				if (!listenerActive) {
-					return;
-				}
-
-				String text = getText();
-				if (text.length() >= min) {
-					previousValue = text;
-					return;
-				}
-
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						listenerActive = false;
-						setText(previousValue);
-						listenerActive = true;
-						UIManager.getLookAndFeel().provideErrorFeedback(LimittedTextField.this);
-					}
-				});
 
 			}
 
@@ -81,7 +48,7 @@ public class LimittedTextField extends JTextField {
 				String text = getText();
 				if (text.length() <= max) {
 					previousValue = text;
-					validateBorder();
+					updateField();
 					return;
 				}
 
@@ -92,7 +59,7 @@ public class LimittedTextField extends JTextField {
 						setText(previousValue);
 						listenerActive = true;
 						UIManager.getLookAndFeel().provideErrorFeedback(LimittedTextField.this);
-						validateBorder();
+						updateField();
 					}
 				});
 
@@ -107,50 +74,24 @@ public class LimittedTextField extends JTextField {
 	}
 
 	public boolean verify() {
-		validateBorder();
-		return verifyValue();
+		return updateField();
 	}
 
-	private void validateBorder() {
+	private boolean updateField() {
 		boolean val = getText().length() >= min && getText().length() <= max;
-
 		if (val) {
 			setBorder(UIManager.getBorder("TextField.border"));
+			parent.setWarnVisible(false);
 		} else {
 			setBorder(new LineBorder(Color.red, 1));
+			parent.setWarnVisible(true);
 		}
-	}
-
-	private boolean verifyValue() {
-		boolean val = getText().length() >= min && getText().length() <= max;
-		Point p = getLocationOnScreen();
-
-		if (val) {
-			setBorder(UIManager.getBorder("TextField.border"));
-			if (popup != null) {
-				popup.hide();
-				popup = null;
-			}
-		} else {
-			setBorder(new LineBorder(Color.red, 1));
-			if (popup == null) {
-				popup = popupFactory.getPopup(this, jLabel, p.x + 20, p.y);
-				popup.show();
-				ActionListener hider = new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if (popup != null) {
-							popup.hide();
-							popup = null;
-						}
-					}
-				};
-				Timer timer = new Timer(20000, hider);
-				timer.start();
-			}
-		}
-
 		return val;
+	}
+
+	public void setParent(LimittedTextFieldwL parent) {
+		this.parent = parent;
+
 	}
 
 }

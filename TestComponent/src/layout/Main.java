@@ -1,7 +1,11 @@
 package layout;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import textfield.LimittedTextFieldwL;
@@ -9,15 +13,36 @@ import textfield.NumberFieldwL;
 
 public class Main extends JPanel {
 
+	private JButton button;
+	private NumberFieldwL nfl;
+	private LimittedTextFieldwL ltf;
+
 	public Main() {
 		super(new FormLayout());
-		add(new NumberFieldwL("textx", 10, 25));
-		add(new NumberFieldwL("textx", 10, 25));
-		add(new NumberFieldwL("textx", 10, 25));
-		add(new LimittedTextFieldwL("textx", 10, 25));
-		add(new LimittedTextFieldwL("textx", 10, 25));
-		add(new JLabel("Deneme"));
-		add(new JLabel("Deneme2"));
+
+		nfl = new NumberFieldwL("textxn", -10, 255);
+		add(nfl);
+
+		ltf = new LimittedTextFieldwL("textx", 10, 25);
+		add(ltf);
+
+		button = new JButton("Doğrula");
+		add(button);
+
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if (nfl.verify() && ltf.verify()) {
+					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulandı.");
+				} else {
+					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulanaMAdı!!!!!!.");
+				}
+
+			}
+		});
+
 	}
 
 	private static void createAndShowGUI() {

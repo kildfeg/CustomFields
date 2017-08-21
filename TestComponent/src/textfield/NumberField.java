@@ -1,16 +1,9 @@
 package textfield;
 
 import java.awt.Color;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
@@ -18,14 +11,17 @@ import javax.swing.event.DocumentListener;
 
 public class NumberField extends JTextField {
 
-	private int min;
-	private int max;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int minValue;
+	private int maxValue;
 
 	private String previousValue = null;
 	private boolean listenerActive = true;
-	private Popup popup;
-	private PopupFactory popupFactory;
-	private JLabel label;
+
+	private NumberFieldwL parent;
 
 	/**
 	 * 
@@ -33,14 +29,11 @@ public class NumberField extends JTextField {
 	 * @param maxLentgh
 	 */
 	public NumberField(int minValue, int maxValue) {
-		this.min = minValue;
-		this.max = maxValue;
+		this.minValue = minValue;
+		this.maxValue = maxValue;
 
 		addListener();
 
-		popupFactory = PopupFactory.getSharedInstance();
-		label = new JLabel("En az " + min + " en fazla " + max + " olmalıdır.");
-		label.setForeground(new Color(255, 0, 0));
 	}
 
 	private void addListener() {
@@ -58,15 +51,15 @@ public class NumberField extends JTextField {
 				}
 				String text = getText();
 
-				if (text != null && text.length() == 1 && text.equals("-")) {
+				if (text != null && text.length() == 1 && text.equals("-") && minValue < 0) {
 					previousValue = text;
 					return;
 				}
 				try {
 					int val = Integer.parseInt(text);
-					if (val <= max && val >= min) {
+					if ((val >= 0 && val <= maxValue) || (val < 0 && val >= minValue)) {
 						previousValue = text;
-						validateBorder();
+						updateField();
 						return;
 					}
 				} catch (NumberFormatException e) {
@@ -80,7 +73,7 @@ public class NumberField extends JTextField {
 						setText(previousValue);
 						listenerActive = true;
 						UIManager.getLookAndFeel().provideErrorFeedback(NumberField.this);
-						validateBorder();
+						updateField();
 					}
 				});
 
@@ -95,62 +88,29 @@ public class NumberField extends JTextField {
 	}
 
 	public boolean verify() {
-		validateBorder();
-		return verifyValue();
+		return updateField();
 	}
 
-	private void validateBorder() {
+	private boolean updateField() {
+
 		boolean val = false;
 
 		try {
-			val = Integer.parseInt(getText()) >= min && Integer.parseInt(getText()) <= max;
-
+			val = Integer.parseInt(getText()) >= minValue && Integer.parseInt(getText()) <= maxValue;
 		} catch (NumberFormatException e) {
-			val = false;
 		}
 		if (val) {
 			setBorder(UIManager.getBorder("TextField.border"));
+			parent.setWarnVisible(false);
 		} else {
 			setBorder(new LineBorder(Color.red, 1));
+			parent.setWarnVisible(true);
 		}
-
-	}
-
-	private boolean verifyValue() {
-		boolean val = false;
-
-		try {
-			val = Integer.parseInt(getText()) >= min && Integer.parseInt(getText()) <= max;
-
-		} catch (NumberFormatException e) {
-			val = false;
-		}
-		Point p = getLocationOnScreen();
-		if (val) {
-			setBorder(UIManager.getBorder("TextField.border"));
-			if (popup != null) {
-				popup.hide();
-				popup = null;
-			}
-		} else {
-			setBorder(new LineBorder(Color.red, 1));
-			if (popup == null) {
-				popup = popupFactory.getPopup(this, label, p.x + 20, p.y);
-				popup.show();
-				ActionListener hider = new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if (popup != null) {
-							popup.hide();
-							popup = null;
-						}
-					}
-				};
-				Timer timer = new Timer(20000, hider);
-				timer.start();
-			}
-		}
-
 		return val;
+	}
+
+	public void setParent(NumberFieldwL parent) {
+		this.parent = parent;
+
 	}
 }

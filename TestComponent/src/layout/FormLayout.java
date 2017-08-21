@@ -7,17 +7,11 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 
 public class FormLayout implements LayoutManager {
-	// private int vgap;
 	private int minWidth = 0, minHeight = 0;
 	private int preferredWidth = 0, preferredHeight = 0;
 	private boolean sizeUnknown = true;
 
 	public FormLayout() {
-		// this(5);
-	}
-
-	public FormLayout(int v) {
-		// vgap = v;
 	}
 
 	/* Required by LayoutManager. */
@@ -98,15 +92,11 @@ public class FormLayout implements LayoutManager {
 	public void layoutContainer(Container parent) {
 		Insets insets = parent.getInsets();
 		int maxWidth = parent.getWidth() - (insets.left + insets.right);
-		System.out.println("MAX W: " + maxWidth);
 		int maxHeight = parent.getHeight() - (insets.top + insets.bottom);
 		int nComps = parent.getComponentCount();
 		int previousWidth = 0, previousHeight = 0;
 		int x = 0, y = insets.top;
 
-		// Go through the components' sizes, if neither
-		// preferredLayoutSize nor minimumLayoutSize has
-		// been called.
 		if (sizeUnknown) {
 			setSizes(parent);
 		}
