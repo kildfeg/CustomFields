@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import textfield.LimittedTextFieldwL;
-import textfield.NumberFieldwL;
+import field.LimittedTextFieldwL;
+import field.NumberFieldwL;
 
 public class Main extends JPanel {
 
