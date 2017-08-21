@@ -16,6 +16,8 @@ public class Main extends JPanel {
 	private JButton button;
 	private NumberFieldwL nfl;
 	private LimittedTextFieldwL ltf;
+	private LimittedTextFieldwL ltf2;
+	private LimittedTextFieldwL ltf3;
 
 	public Main() {
 		super(new FormLayout());
@@ -26,6 +28,12 @@ public class Main extends JPanel {
 		ltf = new LimittedTextFieldwL("TextField : ", 10, 25);
 		add(ltf);
 
+		ltf2 = new LimittedTextFieldwL("TextField : ", 2, 10);
+		add(ltf2);
+
+		ltf3 = new LimittedTextFieldwL("TextField : ", 3, 11);
+		add(ltf3);
+
 		button = new JButton("Doğrula");
 		add(button);
 
@@ -34,7 +42,7 @@ public class Main extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (nfl.verify() && ltf.verify()) {
+				if (nfl.verify() && ltf.verify() && ltf2.verify() && ltf3.verify()) {
 					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulandı.");
 				} else {
 					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulanaMAdı!!!!!!.");
