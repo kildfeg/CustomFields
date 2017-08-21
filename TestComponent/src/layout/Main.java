@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import field.LimittedTextAreawL;
 import field.LimittedTextFieldwL;
 import field.NumberFieldwL;
 
@@ -18,6 +19,7 @@ public class Main extends JPanel {
 	private LimittedTextFieldwL ltf;
 	private LimittedTextFieldwL ltf2;
 	private LimittedTextFieldwL ltf3;
+	private LimittedTextAreawL lta;
 
 	public Main() {
 		super(new FormLayout());
@@ -34,6 +36,9 @@ public class Main extends JPanel {
 		ltf3 = new LimittedTextFieldwL("TextField : ", 3, 11);
 		add(ltf3);
 
+		lta = new LimittedTextAreawL("TextArea : ", 3, 150);
+		add(lta);
+
 		button = new JButton("Doğrula");
 		add(button);
 
@@ -42,7 +47,7 @@ public class Main extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (nfl.verify() && ltf.verify() && ltf2.verify() && ltf3.verify()) {
+				if (nfl.verify() && ltf.verify() && ltf2.verify() && ltf3.verify() && lta.verify()) {
 					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulandı.");
 				} else {
 					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulanaMAdı!!!!!!.");
@@ -60,7 +65,7 @@ public class Main extends JPanel {
 
 		// Add contents to the window.
 		frame.add(new Main());
-		frame.setSize(400, 200);
+		frame.setSize(400, 400);
 		// Display the window.
 		// frame.pack();
 		frame.setVisible(true);

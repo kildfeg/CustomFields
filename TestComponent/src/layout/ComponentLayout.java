@@ -78,7 +78,7 @@ public class ComponentLayout implements LayoutManager {
 		int iconSize = 0;
 
 		Component label = parent.getComponent(0);
-		Component textField = parent.getComponent(1);
+		Component field = parent.getComponent(1);
 		Component warnIcon = parent.getComponent(2);
 
 		iconSize = warnIcon.isVisible() ? 20 : 0;
@@ -87,8 +87,8 @@ public class ComponentLayout implements LayoutManager {
 			label.setBounds(x, y, (int) (maxWidth * 0.3), label.getPreferredSize().height);
 			x += (int) (maxWidth * 0.3);
 		}
-		if (textField.isVisible()) {
-			textField.setBounds(x, y, (int) (maxWidth * 0.7) - iconSize, textField.getPreferredSize().height);
+		if (field.isVisible()) {
+			field.setBounds(x, y, (int) (maxWidth * 0.7) - iconSize, field.getPreferredSize().height);
 			x += (int) (maxWidth * 0.7) - iconSize;
 		}
 		if (warnIcon.isVisible()) {

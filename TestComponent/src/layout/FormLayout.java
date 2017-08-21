@@ -105,7 +105,6 @@ public class FormLayout implements LayoutManager {
 			Component c = parent.getComponent(i);
 			if (c.isVisible()) {
 				Dimension d = c.getPreferredSize();
-				Dimension dm = c.getMinimumSize();
 
 				// increase x and y, if appropriate
 				if (i > 0) {
