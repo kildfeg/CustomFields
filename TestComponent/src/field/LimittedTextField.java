@@ -37,7 +37,7 @@ public class LimittedTextField extends JTextField {
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
-
+				updateField();
 			}
 
 			@Override

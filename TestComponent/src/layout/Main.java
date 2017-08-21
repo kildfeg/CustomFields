@@ -22,7 +22,7 @@ public class Main extends JPanel {
 	private LimittedTextAreawL lta;
 
 	public Main() {
-		super(new FormLayout());
+		super(new FormLayout(2, 2));
 
 		nfl = new NumberFieldwL("NumberField : ", -10, 255);
 		add(nfl);
@@ -67,7 +67,6 @@ public class Main extends JPanel {
 		frame.add(new Main());
 		frame.setSize(400, 400);
 		// Display the window.
-		// frame.pack();
 		frame.setVisible(true);
 	}
 

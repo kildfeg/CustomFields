@@ -10,8 +10,15 @@ public class FormLayout implements LayoutManager {
 	private int minWidth = 0, minHeight = 0;
 	private int preferredWidth = 0, preferredHeight = 0;
 	private boolean sizeUnknown = true;
+	private int hgap = 5;
+	private int vgap = 5;
 
 	public FormLayout() {
+	}
+
+	public FormLayout(int hgap, int vgap) {
+		this.hgap = hgap;
+		this.vgap = vgap;
 	}
 
 	/* Required by LayoutManager. */
@@ -46,6 +53,8 @@ public class FormLayout implements LayoutManager {
 				minHeight = preferredHeight;
 			}
 		}
+		minWidth += 2 * hgap;
+		minHeight += (nComps - 1) + vgap;
 	}
 
 	/* Required by LayoutManager. */
@@ -61,6 +70,8 @@ public class FormLayout implements LayoutManager {
 		dim.width = preferredWidth + insets.left + insets.right;
 		dim.height = preferredHeight + insets.top + insets.bottom;
 
+		dim.width += 2 * hgap;
+		dim.height += (nComps - 1) + vgap;
 		sizeUnknown = false;
 
 		return dim;
@@ -112,10 +123,9 @@ public class FormLayout implements LayoutManager {
 				}
 
 				// Set the component's size and position.
-				c.setBounds(x, y, maxWidth, d.height);
-
+				c.setBounds(x + hgap, y + vgap, maxWidth - hgap, d.height);
 				previousWidth = maxWidth;
-				previousHeight = d.height;
+				previousHeight = d.height + (2 * vgap);
 			}
 		}
 	}

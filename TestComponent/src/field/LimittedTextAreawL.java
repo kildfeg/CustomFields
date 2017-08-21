@@ -31,11 +31,12 @@ public class LimittedTextAreawL extends JComponent {
 	public LimittedTextAreawL(String text, int min, int max) {
 		setLayout(new ComponentLayout());
 		label = new JLabel(text);
-		limittedTextArea = new LimittedTextArea(min, max);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setPreferredSize(new Dimension(150, 20));
 		add(label);
 
+		limittedTextArea = new LimittedTextArea(min, max);
+		limittedTextArea.setLineWrap(true);
 		limittedTextArea.setPreferredSize(new Dimension(200, 100));
 		add(limittedTextArea);
 

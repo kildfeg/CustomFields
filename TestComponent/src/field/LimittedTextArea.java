@@ -37,7 +37,7 @@ public class LimittedTextArea extends JTextArea {
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
-
+				updateField();
 			}
 
 			@Override

@@ -41,7 +41,7 @@ public class NumberField extends JTextField {
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
-
+				updateField();
 			}
 
 			@Override
