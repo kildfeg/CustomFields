@@ -75,21 +75,21 @@ public class ComponentLayout implements LayoutManager {
 		Insets insets = parent.getInsets();
 		int maxWidth = parent.getWidth() - (insets.left + insets.right);
 		int x = 0, y = insets.top;
-		int iconSize = 20;
+		int iconSize = 0;
 
 		Component label = parent.getComponent(0);
 		Component textField = parent.getComponent(1);
 		Component warnIcon = parent.getComponent(2);
 
-		maxWidth -= warnIcon.isVisible() ? iconSize : 0;
+		iconSize = warnIcon.isVisible() ? 20 : 0;
 
 		if (label.isVisible()) {
 			label.setBounds(x, y, (int) (maxWidth * 0.3), label.getPreferredSize().height);
 			x += (int) (maxWidth * 0.3);
 		}
 		if (textField.isVisible()) {
-			textField.setBounds(x, y, (int) (maxWidth * 0.7), textField.getPreferredSize().height);
-			x += (int) (maxWidth * 0.7);
+			textField.setBounds(x, y, (int) (maxWidth * 0.7) - iconSize, textField.getPreferredSize().height);
+			x += (int) (maxWidth * 0.7) - iconSize;
 		}
 		if (warnIcon.isVisible()) {
 			warnIcon.setBounds(x, y, warnIcon.getPreferredSize().width, warnIcon.getPreferredSize().height);

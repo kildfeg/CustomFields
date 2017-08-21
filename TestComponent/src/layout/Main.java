@@ -20,10 +20,10 @@ public class Main extends JPanel {
 	public Main() {
 		super(new FormLayout());
 
-		nfl = new NumberFieldwL("textxn", -10, 255);
+		nfl = new NumberFieldwL("NumberField : ", -10, 255);
 		add(nfl);
 
-		ltf = new LimittedTextFieldwL("textx", 10, 25);
+		ltf = new LimittedTextFieldwL("TextField : ", 10, 25);
 		add(ltf);
 
 		button = new JButton("Doğrula");
