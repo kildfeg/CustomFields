@@ -9,9 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import field.DateFieldwL;
+import field.DateTimeFieldwL;
 import field.LimittedTextAreawL;
 import field.LimittedTextFieldwL;
 import field.NumberFieldwL;
+import field.TimeFieldwL;
 
 public class Main extends JPanel {
 
@@ -43,6 +45,12 @@ public class Main extends JPanel {
 		DateFieldwL fieldwL = new DateFieldwL("Date Field : ");
 		add(fieldwL);
 
+		TimeFieldwL fieltwL = new TimeFieldwL("Time Field : ");
+		add(fieltwL);
+
+		DateTimeFieldwL dateTimeFieldwL = new DateTimeFieldwL("Date Time Field : ");
+		add(dateTimeFieldwL);
+
 		button = new JButton("Doğrula");
 		add(button);
 		button.addActionListener(new ActionListener() {
@@ -50,8 +58,8 @@ public class Main extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (fieldwL.verify() && nfl.verify() && ltf.verify() && ltf2.verify() && ltf3.verify()
-						&& lta.verify()) {
+				if (dateTimeFieldwL.verify() && fieltwL.verify() && fieldwL.verify() && nfl.verify() && ltf.verify()
+						&& ltf2.verify() && ltf3.verify() && lta.verify()) {
 					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulandı.");
 				} else {
 					// JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar

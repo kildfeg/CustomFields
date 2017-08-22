@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/field/DateFieldwL.java=UTF-8
+encoding//src/field/DateTimeFieldwL.java=UTF-8
 encoding//src/field/LimittedTextAreawL.java=UTF-8
 encoding//src/field/LimittedTextFieldwL.java=UTF-8
 encoding//src/field/NumberField.java=UTF-8
 encoding//src/field/NumberFieldwL.java=UTF-8
 encoding//src/field/Test.java=UTF-8
+encoding//src/field/TimeFieldwL.java=UTF-8
 encoding//src/layout/Main.java=UTF-8

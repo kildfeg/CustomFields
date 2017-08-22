@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,12 +22,13 @@ import javax.swing.PopupFactory;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.DateTimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
 
 import layout.ComponentLayout;
 
-public class DateFieldwL extends JComponent {
+public class DateTimeFieldwL extends JComponent {
 
 	private JLabel label;
 
@@ -36,32 +38,55 @@ public class DateFieldwL extends JComponent {
 	private PopupFactory popupFactory;
 	private JLabel labelPopup;
 
-	private DatePicker datePicker;
 	private DatePickerSettings dateSettings;
+	private TimePickerSettings timeSettings;
 
-	public DateFieldwL(String text) {
+	private DateTimePicker dateTimePicker;
+
+	public DateTimeFieldwL(String text) {
 		setLayout(new ComponentLayout());
 		label = new JLabel(text);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setPreferredSize(new Dimension(150, 20));
 		add(label);
 
-		URL dateImageURL = DateFieldwL.class.getResource("images/calendar.png");
+		/// Date
+		URL dateImageURL = DateTimeFieldwL.class.getResource("images/calendar.png");
 		Image dateExampleImage = Toolkit.getDefaultToolkit().getImage(dateImageURL);
 		ImageIcon dateExampleIcon = new ImageIcon(dateExampleImage);
 
 		dateSettings = new DatePickerSettings();
-		dateSettings.setAllowEmptyDates(false);
 		dateSettings.setAllowKeyboardEditing(false);
 		dateSettings.setFormatForDatesCommonEra("dd/MM/yyyy");
-		datePicker = new DatePicker(dateSettings);
-		datePicker.setDateToToday();
 
-		JButton datePickerButton = datePicker.getComponentToggleCalendarButton();
+		// Time
+		URL timeIconURL = TimeFieldwL.class.getResource("images/watch.png");
+		Image timeExampleImage = Toolkit.getDefaultToolkit().getImage(timeIconURL);
+		ImageIcon timeExampleIcon = new ImageIcon(timeExampleImage);
+
+		timeSettings = new TimePickerSettings();
+		timeSettings.use24HourClockFormat();
+		timeSettings.setAllowEmptyTimes(false);
+		timeSettings.initialTime = LocalTime.of(00, 00);
+
+		dateSettings = new DatePickerSettings();
+		dateSettings.setFormatForDatesCommonEra("dd/MM/yyyy");
+		dateSettings.setAllowEmptyDates(false);
+
+		dateTimePicker = new DateTimePicker(dateSettings, timeSettings);
+
+		// Date icon
+		dateTimePicker.getDatePicker().setDateToToday();
+		JButton datePickerButton = dateTimePicker.getDatePicker().getComponentToggleCalendarButton();
 		datePickerButton.setText("");
 		datePickerButton.setIcon(dateExampleIcon);
 
-		add(datePicker);
+		// Time icon
+		JButton timePickerButton = dateTimePicker.getTimePicker().getComponentToggleTimeMenuButton();
+		timePickerButton.setText("");
+		timePickerButton.setIcon(timeExampleIcon);
+
+		add(dateTimePicker);
 
 		ImageIcon icon = createImageIcon("images/warn.png", "");
 		lblIWarnicon = new JLabel(icon);
@@ -83,7 +108,7 @@ public class DateFieldwL extends JComponent {
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected static ImageIcon createImageIcon(String path, String description) {
-		java.net.URL imgURL = DateFieldwL.class.getResource(path);
+		java.net.URL imgURL = DateTimeFieldwL.class.getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL, description);
 		} else {
@@ -94,8 +119,9 @@ public class DateFieldwL extends JComponent {
 
 	public boolean verify() {
 
-		LocalDate selectedDate = datePicker.getDate();
-		if (selectedDate == null) {
+		LocalDate selectedDate = dateTimePicker.getDatePicker().getDate();
+		LocalTime selectedTime = dateTimePicker.getTimePicker().getTime();
+		if (selectedDate == null || selectedTime == null) {
 			setWarnVisible(true);
 			return false;
 		}
