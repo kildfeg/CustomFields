@@ -26,6 +26,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
+import field.util.IconUtil;
 import layout.ComponentLayout;
 
 public class DateTimeFieldwL extends JComponent {
@@ -67,7 +68,7 @@ public class DateTimeFieldwL extends JComponent {
 		timeSettings = new TimePickerSettings();
 		timeSettings.use24HourClockFormat();
 		timeSettings.setAllowEmptyTimes(false);
-		timeSettings.initialTime = LocalTime.of(00, 00);
+		timeSettings.initialTime = LocalTime.now();
 
 		dateSettings = new DatePickerSettings();
 		dateSettings.setFormatForDatesCommonEra("dd/MM/yyyy");
@@ -88,7 +89,7 @@ public class DateTimeFieldwL extends JComponent {
 
 		add(dateTimePicker);
 
-		ImageIcon icon = createImageIcon("images/warn.png", "");
+		ImageIcon icon = IconUtil.createImageIcon(this.getClass(), "images/warn.png", "");
 		lblIWarnicon = new JLabel(icon);
 		lblIWarnicon.setPreferredSize(new Dimension(20, 20));
 		lblIWarnicon.setVisible(false);
@@ -104,17 +105,6 @@ public class DateTimeFieldwL extends JComponent {
 		labelPopup = new JLabel("Boş bırakılamaz.");
 		labelPopup.setForeground(new Color(255, 0, 0));
 
-	}
-
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path, String description) {
-		java.net.URL imgURL = DateTimeFieldwL.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL, description);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
 	}
 
 	public boolean verify() {

@@ -2,14 +2,11 @@ package field;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URL;
 import java.time.LocalTime;
 
 import javax.swing.ImageIcon;
@@ -24,6 +21,7 @@ import javax.swing.Timer;
 import com.github.lgooddatepicker.components.TimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
+import field.util.IconUtil;
 import layout.ComponentLayout;
 
 public class TimeFieldwL extends JComponent {
@@ -47,22 +45,19 @@ public class TimeFieldwL extends JComponent {
 		label.setPreferredSize(new Dimension(150, 20));
 		add(label);
 
-		URL timeIconURL = TimeFieldwL.class.getResource("images/watch.png");
-		Image timeExampleImage = Toolkit.getDefaultToolkit().getImage(timeIconURL);
-		ImageIcon timeExampleIcon = new ImageIcon(timeExampleImage);
-
+		ImageIcon iconTime = IconUtil.createImageIcon(this.getClass(), "images/watch.png", "");
 		timeSettings = new TimePickerSettings();
 		timeSettings.use24HourClockFormat();
-		timeSettings.initialTime = LocalTime.of(00, 00);
+		timeSettings.initialTime = LocalTime.now();
 		timePicker = new TimePicker(timeSettings);
 		JButton timePickerButton = timePicker.getComponentToggleTimeMenuButton();
 		timePickerButton.setText("");
-		timePickerButton.setIcon(timeExampleIcon);
+		timePickerButton.setIcon(iconTime);
 
 		add(timePicker);
 
-		ImageIcon icon = createImageIcon("images/warn.png", "");
-		lblIWarnicon = new JLabel(icon);
+		ImageIcon iconWarn = IconUtil.createImageIcon(this.getClass(), "images/warn.png", "");
+		lblIWarnicon = new JLabel(iconWarn);
 		lblIWarnicon.setPreferredSize(new Dimension(20, 20));
 		lblIWarnicon.setVisible(false);
 		lblIWarnicon.addMouseListener(new MouseAdapter() {
@@ -77,17 +72,6 @@ public class TimeFieldwL extends JComponent {
 		labelPopup = new JLabel("Boş bırakılamaz.");
 		labelPopup.setForeground(new Color(255, 0, 0));
 
-	}
-
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path, String description) {
-		java.net.URL imgURL = TimeFieldwL.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL, description);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
 	}
 
 	public boolean verify() {

@@ -16,6 +16,7 @@ import javax.swing.PopupFactory;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import field.util.IconUtil;
 import layout.ComponentLayout;
 
 public class LimittedTextFieldwL extends JComponent {
@@ -39,7 +40,7 @@ public class LimittedTextFieldwL extends JComponent {
 		limittedTextField.setPreferredSize(new Dimension(200, 20));
 		add(limittedTextField);
 
-		ImageIcon icon = createImageIcon("images/warn.png", "");
+		ImageIcon icon = IconUtil.createImageIcon(this.getClass(), "images/warn.png", "");
 		lblIWarnicon = new JLabel(icon);
 		lblIWarnicon.setPreferredSize(new Dimension(20, 20));
 		lblIWarnicon.setVisible(false);
@@ -56,17 +57,6 @@ public class LimittedTextFieldwL extends JComponent {
 		labelPopup = new JLabel("En az " + min + " en fazla " + max + " karakter içermelidir.");
 		labelPopup.setForeground(new Color(255, 0, 0));
 
-	}
-
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path, String description) {
-		java.net.URL imgURL = LimittedTextFieldwL.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL, description);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
 	}
 
 	public boolean verify() {
