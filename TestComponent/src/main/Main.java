@@ -1,4 +1,4 @@
-package layout;
+package main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +14,7 @@ import field.LimittedTextAreawL;
 import field.LimittedTextFieldwL;
 import field.NumberFieldwL;
 import field.TimeFieldwL;
+import layout.FormLayout;
 
 public class Main extends JPanel {
 
