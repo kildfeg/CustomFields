@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import field.DateFieldwL;
@@ -43,8 +42,8 @@ public class Main extends JPanel {
 		lta = new LimittedTextAreawL("TextArea : ", 3, 150);
 		add(lta);
 
-		DateFieldwL fieldwL = new DateFieldwL("Date Field : ");
-		add(fieldwL);
+		DateFieldwL datefieldwL = new DateFieldwL("Date Field : ");
+		add(datefieldwL);
 
 		TimeFieldwL fieltwL = new TimeFieldwL("Time Field : ");
 		add(fieltwL);
@@ -59,9 +58,20 @@ public class Main extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (dateTimeFieldwL.verify() && fieltwL.verify() && fieldwL.verify() && nfl.verify() && ltf.verify()
+				if (dateTimeFieldwL.verify() && fieltwL.verify() && datefieldwL.verify() && nfl.verify() && ltf.verify()
 						&& ltf2.verify() && ltf3.verify() && lta.verify()) {
-					JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar doğrulandı.");
+					// JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar
+					// doğrulandı.");
+
+					System.out.println("Date : " + datefieldwL.getStringValue());
+					System.out.println("Time : " + fieltwL.getStringValue());
+					System.out.println("Date Time : " + dateTimeFieldwL.getStringValue());
+					System.out.println("Number : " + nfl.getValue());
+					System.out.println("TextArea : " + lta.getValue());
+
+					System.out.println("TextField : " + ltf2.getValue());
+					System.out.println("TextField : " + ltf3.getValue());
+
 				} else {
 					// JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar
 					// doğrulanaMAdı!!!!!!.");

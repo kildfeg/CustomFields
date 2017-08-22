@@ -109,4 +109,8 @@ public class TimeFieldwL extends JComponent {
 		lblIWarnicon.setVisible(b);
 
 	}
+
+	public String getStringValue() {
+		return timePicker.getText();
+	}
 }

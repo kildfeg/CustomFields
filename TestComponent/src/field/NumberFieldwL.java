@@ -90,4 +90,8 @@ public class NumberFieldwL extends JComponent {
 
 	}
 
+	public int getValue() {
+		return numberField.getValue();
+	}
+
 }

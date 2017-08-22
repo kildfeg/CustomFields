@@ -117,4 +117,12 @@ public class DateFieldwL extends JComponent {
 		lblIWarnicon.setVisible(b);
 
 	}
+
+	public LocalDate getDate() {
+		return datePicker.getDate();
+	}
+
+	public String getStringValue() {
+		return datePicker.getText();
+	}
 }

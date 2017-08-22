@@ -113,4 +113,14 @@ public class NumberField extends JTextField {
 		this.parent = parent;
 
 	}
+
+	public int getValue() {
+		int val = 0;
+		try {
+			val = Integer.parseInt(getText());
+		} catch (NumberFormatException e) {
+
+		}
+		return val;
+	}
 }

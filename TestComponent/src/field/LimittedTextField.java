@@ -94,4 +94,8 @@ public class LimittedTextField extends JTextField {
 
 	}
 
+	public String getValue() {
+		return getText();
+	}
+
 }

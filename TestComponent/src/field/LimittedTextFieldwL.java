@@ -87,4 +87,9 @@ public class LimittedTextFieldwL extends JComponent {
 		lblIWarnicon.setVisible(b);
 
 	}
+
+	public String getValue() {
+		return limittedTextField.getValue();
+	}
+
 }

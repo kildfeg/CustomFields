@@ -93,4 +93,8 @@ public class LimittedTextArea extends JTextArea {
 		this.parent = parent;
 	}
 
+	public String getValue() {
+		return getText();
+	}
+
 }

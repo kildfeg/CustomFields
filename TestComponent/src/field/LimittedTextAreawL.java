@@ -88,4 +88,9 @@ public class LimittedTextAreawL extends JComponent {
 		lblIWarnicon.setVisible(b);
 
 	}
+
+	public String getValue() {
+		return limittedTextArea.getValue();
+
+	}
 }

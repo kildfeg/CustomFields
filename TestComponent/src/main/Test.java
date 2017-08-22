@@ -1,4 +1,4 @@
-package field;
+package main;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import field.LimittedTextField;
+import field.LimittedTextFieldwL;
+import field.NumberField;
+import field.NumberFieldwL;
 
 public class Test extends JPanel {
 

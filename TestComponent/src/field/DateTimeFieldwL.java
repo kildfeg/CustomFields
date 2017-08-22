@@ -143,4 +143,8 @@ public class DateTimeFieldwL extends JComponent {
 		lblIWarnicon.setVisible(b);
 
 	}
+
+	public String getStringValue() {
+		return dateTimePicker.getDatePicker().getText() + " " + dateTimePicker.getTimePicker().getText();
+	}
 }
