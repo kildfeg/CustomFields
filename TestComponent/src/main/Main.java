@@ -7,12 +7,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import field.ComboBoxwL;
 import field.DateFieldwL;
 import field.DateTimeFieldwL;
 import field.LimittedTextAreawL;
 import field.LimittedTextFieldwL;
+import field.MultiComboBoxwL;
 import field.NumberFieldwL;
 import field.TimeFieldwL;
+import field.model.ModelCheckBox;
 import layout.FormLayout;
 
 public class Main extends JPanel {
@@ -51,6 +54,19 @@ public class Main extends JPanel {
 		DateTimeFieldwL dateTimeFieldwL = new DateTimeFieldwL("Date Time Field : ");
 		add(dateTimeFieldwL);
 
+		ComboBoxwL comboBoxwL = new ComboBoxwL("String combo : ", new String[] { "abc", "def", "xyz" });
+		add(comboBoxwL);
+
+		ModelCheckBox[] values = new ModelCheckBox[4];
+
+		values[0] = new ModelCheckBox("north", "north", true);
+		values[1] = new ModelCheckBox("west", "west", false);
+		values[2] = new ModelCheckBox("south", "south", true);
+		values[3] = new ModelCheckBox("east", "east", false);
+
+		MultiComboBoxwL multiComboBoxwL = new MultiComboBoxwL("Multi : ", values);
+		add(multiComboBoxwL);
+
 		button = new JButton("Doğrula");
 		add(button);
 		button.addActionListener(new ActionListener() {
@@ -58,8 +74,9 @@ public class Main extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (dateTimeFieldwL.verify() && fieltwL.verify() && datefieldwL.verify() && nfl.verify() && ltf.verify()
-						&& ltf2.verify() && ltf3.verify() && lta.verify()) {
+				if (multiComboBoxwL.verify() && comboBoxwL.verify() && dateTimeFieldwL.verify() && fieltwL.verify()
+						&& datefieldwL.verify() && nfl.verify() && ltf.verify() && ltf2.verify() && ltf3.verify()
+						&& lta.verify()) {
 					// JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar
 					// doğrulandı.");
 
@@ -71,6 +88,11 @@ public class Main extends JPanel {
 
 					System.out.println("TextField : " + ltf2.getValue());
 					System.out.println("TextField : " + ltf3.getValue());
+					System.out.println("Combo  : " + comboBoxwL.getStringValue());
+
+					for (ModelCheckBox modelCheckBox : multiComboBoxwL.getSelectedValues()) {
+						System.out.println("Multi  : " + modelCheckBox.getValue());
+					}
 
 				} else {
 					// JOptionPane.showMessageDialog(Main.this, "Tüm Alanlar
@@ -89,7 +111,7 @@ public class Main extends JPanel {
 
 		// Add contents to the window.
 		frame.add(new Main());
-		frame.setSize(400, 400);
+		frame.setSize(400, 600);
 		// Display the window.
 		frame.setVisible(true);
 
